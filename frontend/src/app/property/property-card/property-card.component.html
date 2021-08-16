@@ -1,11 +1,25 @@
 
-      <div class="card p-1">
-        <img class="" src ="assets/img/default-house.png" />
+      <div class="card">
+        <div class="img-wrapper">
+          <img class="card-img-top" src ="assets/img/sample-house1.jpg" />
+          <ul class="list-inline text-center member-icons animate">
 
-        <div class="card-body p-2 text-center">
-          <h1> {{property.name}} </h1>
-          <h2>{{property.type}}</h2>
-          <h2>{{property.price}}</h2>
+           <li class="list-inline-item">
+             <button class="btn btn-primary" routerLink="/property-detail/{{property.Id}}"><i class="bi bi-pencil-square"></i></button>
+            </li>
+           <li class="list-inline-item">
+             <button class="btn btn-primary"><i class="bi bi-envelope-fill"></i></button>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="card-body  text-center">
+          <h3> {{property.Name}} </h3>
+          <h5>{{property.PType}}</h5>
+          <h5>{{property.Price}}</h5>
         </div>
       </div>
 

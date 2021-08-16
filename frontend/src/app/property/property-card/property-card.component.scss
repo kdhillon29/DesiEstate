@@ -3,3 +3,48 @@
   width:200px;
 
 }
+
+.card{
+  border: 0px;
+   & .img-wrapper{
+     overflow: hidden;
+     position: relative;
+     border-bottom: 2px solid palevioletred;
+
+     & .member-icons{
+       position: absolute;
+       left: 0;
+       right:0;
+       bottom: -10%;
+       margin-left: auto;
+       margin-right: auto;
+       opacity: 0;
+     }
+
+   }
+   & .img-wrapper:hover{
+     & .member-icons{
+       bottom: 0;
+       opacity: 1;
+     }
+   }
+  & :hover img{
+
+    transform: scale(1.2,1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    height:250px;
+    opacity: .5;
+  }
+
+  & img{
+    transform:scale(1,1);
+     transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    height:250px;
+
+  }
+  & .animate{
+    transition:all 0.3s ease-in-out;
+  }
+}
