@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators'
-import { IProperty } from './../property/IProperty.interface';
+import { IPropertyBase } from '../models/ipropertybase';
 import { Observable } from 'rxjs';
+import { Property } from '../models/property';
 
 
 @Injectable({
@@ -10,32 +11,72 @@ import { Observable } from 'rxjs';
 })
 export class HousingService {
 
+  addProperty(property: Property) {
+    let newProp= [property]
+    if(localStorage.getItem('newProp')){
+       newProp = [...JSON.parse(localStorage.getItem('newProp')),property];
+
+    }
+
+    localStorage.setItem('newProp', JSON.stringify(newProp));
+
+  }
+
+
+
+
+  newPropID(){
+    if(localStorage.getItem('PID')){
+      localStorage.setItem('PID',String(+localStorage.getItem('PID')+1))
+      return +localStorage.getItem('PID')
+    }
+    else {
+      localStorage.setItem('PID','101')
+      return 101;
+    }
+  }
+  getProperty(id: number) {
+    //throw new Error("some error");
+    return this.getAllProperties().pipe(
+      map(propertiesArray => {
+        return propertiesArray.find(p => p.Id === id);
+      })
+    );
+  }
+
   constructor(private http:HttpClient) {
   }
 
- getAllProperties(): Observable<IProperty[]>{
+ getAllProperties(SellRent?: number): Observable<Property[]> {
+    return this.http.get('data/properties.json').pipe(
+      map(data => {
+      const propertiesArray: Array<Property> = [];
+      const localProperties = JSON.parse(localStorage.getItem('newProp'));
 
-   return this.http.get('data/properties.json')
-   .pipe(
-     map(data=>{
-       const propertyArray:Array<IProperty>=[];
-        //  const {id}= data;
-       for(const id in data){
-       if(data.hasOwnProperty(id))
-         {
-          const {Id, PType,Name,Price} = data[id];
-          const property:IProperty={Id, PType,Name,Price}
-           propertyArray.push(property);
-         }
-
-
-
-
+      if (localProperties) {
+        for (const id in localProperties) {
+          if (SellRent) {
+          if (localProperties.hasOwnProperty(id) && localProperties[id].SellRent === SellRent) {
+            propertiesArray.push(localProperties[id]);
+          }
+        } else {
+          propertiesArray.push(localProperties[id]);
         }
-          return propertyArray;
-     })
-   )
- };
+        }
+      }
 
-
+      for (const id in data) {
+        if (SellRent) {
+          if (data.hasOwnProperty(id) && data[id].SellRent === SellRent) {
+            propertiesArray.push(data[id]);
+          }
+          } else {
+            propertiesArray.push(data[id]);
+        }
+      }
+      return propertiesArray;
+      })
+    );
+     return this.http.get<Property[]>('data/properties.json');
+  }
 }

@@ -1,8 +1,9 @@
 
-      <div class="card">
-        <div class="img-wrapper">
-          <img class="card-img-top" src ="assets/img/sample-house1.jpg" />
-          <ul class="list-inline text-center member-icons animate">
+      <!-- <div class="card p-0">
+        <div class="card-img-wrapper ">
+          <img *ngIf="property.Image" class="card-img-top" src ="assets/images/{{property.Image}}" />
+          <img *ngIf="!property.Image" class="card-img-top" src ="assets/images/default.jpg" />
+          <ul  class="list-inline text-center member-icons animate">
 
            <li class="list-inline-item">
              <button class="btn btn-primary" routerLink="/property-detail/{{property.Id}}"><i class="bi bi-pencil-square"></i></button>
@@ -16,14 +17,47 @@
         </div>
 
 
-        <div class="card-body  text-center">
+        <div class="card-body p-1">
           <h3> {{property.Name}} </h3>
           <h5>{{property.PType}}</h5>
           <h5>{{property.Price}}</h5>
         </div>
-      </div>
+      </div> -->
 
 
 
 
 
+ <div class="card"> -
+  <div class="card-img-wrapper">
+    <img *ngIf="property.Image" class="card-img-top" src="assets/images/{{property.Image}}"/>
+    <img *ngIf="!property.Image" class="card-img-top" src="assets/images/default.jpg"/>
+    <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
+      <li class="list-inline-item">
+        <button class="btn btn-primary" routerLink="/property-detail/{{property.Id}}"><i class="bi bi-pencil-square"></i></button>
+      </li>
+      <li class="list-inline-item">
+        <button class="btn btn-primary"><i class="bi bi-envelope-fill"></i></button>
+      </li>
+    </ul>
+
+  </div>
+  <div class="card-body p-1">
+    <h2 class="mb-0"> {{property.BHK}} BHK {{property.PType}} </h2>
+
+    in {{property.Name}}
+    <span *ngIf="property.Name">,</span>
+    {{property.City}}
+
+    <h5  class="mt-2">{{property.FType}}
+    <span *ngIf="property.FType !== 'Unfurnished'">Furnished</span>
+    <span *ngIf="property.RTM"> | Ready to Move</span>
+    <span *ngIf="!property.RTM"> | Posession: {{property.PostedOn| date}}</span>
+    </h5>
+
+    <hr class="mt-0 mb-2">
+
+    <h6 class="mb-0">Price: <span class="font-highlight">{{property.Price}} USD.</span> |
+      Area:  <span class="font-highlight">{{property.BuiltArea}} Sq Ft </span> </h6>
+  </div>
+</div>

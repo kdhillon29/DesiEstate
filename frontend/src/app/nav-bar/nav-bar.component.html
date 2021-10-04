@@ -10,18 +10,43 @@
           <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" aria-current="page" routerLink="/">Buy </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"routerLinkActive="active" routerLink="/rent">Rent</a>
+          <a class="nav-link"routerLinkActive="active" routerLink="/rent-property">Rent</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"routerLinkActive="active" routerLink="/add-property">List Property(free)</a>
         </li>
         </ul>
-     </div>
+        <div>
 
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+          <ul class="nav navbar-nav">
+           <li *ngIf="!loggedIn()" class="nav-item">
+             <a class="nav-link" routerLink="/register" routerLinkActive="active">Register </a>
+             </li>
+           <li *ngIf="!loggedIn()" class="nav-item">
+              <a class="nav-link" routerLink="/login" routerLinkActive="active">Login </a>
+           </li>
+           <li *ngIf="loggedIn()" class="nav-item">
+              <div  class="dropdown mr-5" dropdown>
+          <a href="#" class="dropdown-toggle text-light" dropdownToggle (click)="false">
+               Welcome {{user}}
+          </a>
+          <div class="dropdown-menu" *dropdownMenu>
+              <a href="#"class="dropdown-item">
+                <i class="fas fa-tachometer-alt"></i> View Dashboard</a>
+              <a href="#" class="dropdown-item">
+                <i class="far fa-user-circle"></i> My Profile</a>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-key"></i> Change Password</a>
+              <a (click)='onLogOut()' class="dropdown-item">
+                <i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+
+           </li>
+          </ul>
+        </div>
+      </div>
+
 
   </div>
 </nav>
